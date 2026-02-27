@@ -364,6 +364,7 @@ h5 {
   position: relative;
   z-index: 10;
   width: 100%;
+  pointer-events: none;
 }
 
 .right-align .content {
@@ -376,6 +377,7 @@ h5 {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  pointer-events: auto;
 }
 
 .watermark-tag {
