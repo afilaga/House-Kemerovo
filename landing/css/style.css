@@ -850,7 +850,12 @@ footer p a {
     position: relative;
     width: 100%;
     height: 40vh;
+    min-height: 300px;
     /* Keeps the photo horizontal */
+  }
+
+  .cta-section {
+    min-height: 100vh;
   }
 
   .overlay-slide-right,
