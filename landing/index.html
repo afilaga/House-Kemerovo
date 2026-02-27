@@ -305,18 +305,16 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide swiper-no-swiping">
                         <div class="comparison-slider"
-                            style="position: absolute; width: 100%; height: 100%; overflow: hidden;">
+                            style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; overflow: hidden; cursor: ew-resize; z-index: 10; touch-action: none;">
                             <div class="image-before"
-                                style="position: absolute; width: 100%; height: 100%; background-image: url('images/master/1.webp?v=2'); background-size: cover; background-position: center;">
+                                style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; background-image: url('images/master/1.webp?v=2'); background-size: cover; background-position: center; pointer-events: none;">
                             </div>
                             <div class="image-after"
-                                style="position: absolute; width: 50%; height: 100%; background-image: url('images/master/1_night.webp?v=2'); background-size: cover; background-position: center; border-right: 3px solid #fff;">
+                                style="position: absolute; width: 50%; height: 100%; top: 0; left: 0; background-image: url('images/master/1_night.webp?v=2'); background-size: cover; background-position: center; border-right: 3px solid #fff; pointer-events: none;">
                                 <div class="slider-handle"
                                     style="position: absolute; top: 50%; right: -15px; width: 30px; height: 30px; background: #fff; border-radius: 50%; transform: translateY(-50%); display:flex; align-items:center; justify-content:center; z-index: 10; font-weight: bold; color: #222; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
                                     &lt;&gt;</div>
                             </div>
-                            <input type="range" class="comparison-range" min="0" max="100" value="50"
-                                style="position: absolute; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-index: 20;">
                         </div>
                     </div>
                     <div class="swiper-slide">
@@ -1001,12 +999,26 @@
 
             const comparisonSliders = document.querySelectorAll('.comparison-slider');
             comparisonSliders.forEach(slider => {
-                const range = slider.querySelector('.comparison-range');
                 const afterImage = slider.querySelector('.image-after');
+                let isDown = false;
 
-                range.addEventListener('input', (e) => {
-                    afterImage.style.width = e.target.value + '%';
-                });
+                const move = (e) => {
+                    if (!isDown) return;
+                    let x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                    let rect = slider.getBoundingClientRect();
+                    let position = ((x - rect.left) / rect.width) * 100;
+                    if (position < 0) position = 0;
+                    if (position > 100) position = 100;
+                    afterImage.style.width = position + '%';
+                };
+
+                slider.addEventListener('mousedown', (e) => { isDown = true; move(e); });
+                window.addEventListener('mouseup', () => { isDown = false; });
+                window.addEventListener('mousemove', move);
+
+                slider.addEventListener('touchstart', (e) => { isDown = true; move(e); }, { passive: true });
+                window.addEventListener('touchend', () => { isDown = false; });
+                window.addEventListener('touchmove', move, { passive: true });
             });
 
             const generalSwiperOptions = {
