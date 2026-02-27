@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --safe-zone: 80px;
+      --yellow: #FFDE00;
+      /* Avito red for high importance tags */
+      --red: #FF3B30;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1600px;
+      height: 1200px;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+    }
+
+    .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      z-index: 1;
+    }
+
+    /* Cover specific gradient - very aggressive to ensure text pops */
+    .overlay-cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.85) 100%);
+      z-index: 2;
+    }
+
+    /* Inner layout overlay - replaced with beautiful vignette so photo is clearly visible */
+    .overlay-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.5) 100%);
+      z-index: 2;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      padding: var(--safe-zone);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* === COVER STYLES === */
+    #cover-view {
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cover-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .status-tag {
+      background: var(--red);
+      color: white;
+      font-weight: 900;
+      font-size: 32px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 10px 30px rgba(255, 59, 48, 0.4);
+    }
+
+    .watermark-cover {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-size: 26px;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 12px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .cover-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .cover-badges {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .c-badge {
+      background: white;
+      color: black;
+      font-weight: 900;
+      font-size: 34px;
+      padding: 14px 32px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .cover-price-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .c-title {
+      color: white;
+      font-weight: 900;
+      font-size: 110px;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -3px;
+      text-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .c-price {
+      background: var(--yellow);
+      color: black;
+      font-weight: 900;
+      font-size: 64px;
+      padding: 12px 32px;
+      border-radius: 16px;
+      line-height: 1;
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(255, 222, 0, 0.4);
+      white-space: nowrap;
+    }
+
+    /* === INNER SLIDES STYLES === */
+    .inner-layout {
+      display: none;
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-start;
+    }
+
+    /* Sleek, dense, smaller footprint to showcase the image */
+    .info-card {
+      background: rgba(20, 20, 20, 0.45);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 48px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-left: 8px solid var(--yellow);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 1000px;
+      /* Leave massive space on the right for photo */
+    }
+
+    .i-watermark {
+      align-self: flex-start;
+      background: #fff;
+      color: #000;
+      font-weight: 900;
+      font-size: 20px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .i-titles {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .i-subtitle {
+      color: var(--yellow);
+      font-size: 30px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .i-title {
+      color: white;
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .i-features {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .i-feature {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .check-icon {
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .check-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--yellow);
+      font-weight: bold;
+    }
+
+    .feat-text {
+      font-size: 32px;
+      font-weight: 500;
+      color: #FFFFFF;
+      letter-spacing: -0.5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-image" id="bg"></div>
+  <div id="overlay-layer"></div>
+
+  <div class="content">
+
+    <!-- COVER LAYOUT -->
+    <div id="cover-view" style="display: none;">
+      <div class="cover-top">
+        <div class="status-tag">Продается</div>
+        <div class="watermark-cover" id="c-watermark">Кемерово, р-н Кировский</div>
+      </div>
+      <div class="cover-bottom">
+        <div class="cover-badges" id="c-badges"></div>
+        <div class="cover-price-row">
+          <div class="c-title" id="c-title"></div>
+          <div class="c-price" id="c-price"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INNER LAYOUT -->
+    <div id="inner-view" class="inner-layout">
+      <div class="info-card">
+        <div class="i-watermark" id="i-watermark"></div>
+        <div class="i-titles">
+          <div class="i-subtitle" id="i-subtitle"></div>
+          <div class="i-title" id="i-title"></div>
+        </div>
+        <div class="i-features" id="i-features"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const checkSvg = `<svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>`;
+
+    function renderInfo() {
+      const data = window.setupData || {};
+
+      let imgUrl = data.image || '';
+      if (imgUrl && !imgUrl.startsWith('http') && !imgUrl.startsWith('data:') && !imgUrl.startsWith('file://')) {
+        imgUrl = imgUrl;
+      }
+      document.getElementById('bg').style.backgroundImage = `url('${imgUrl}')`;
+
+      if (data.isCover) {
+        document.getElementById('overlay-layer').className = 'overlay-cover';
+        document.getElementById('cover-view').style.display = 'flex';
+        document.getElementById('inner-view').style.display = 'none';
+
+        document.getElementById('c-watermark').innerText = data.watermark || '';
+        document.getElementById('c-title').innerText = data.title || '';
+        document.getElementById('c-price').innerText = data.price || '';
+
+        const badgesContainer = document.getElementById('c-badges');
+        badgesContainer.innerHTML = '';
+        (data.badges || []).forEach(b => {
+          badgesContainer.innerHTML += `<div class="c-badge">${b}</div>`;
+        });
+      } else {
+        document.getElementById('overlay-layer').className = 'overlay-inner';
+        document.getElementById('cover-view').style.display = 'none';
+        document.getElementById('inner-view').style.display = 'flex';
+
+        document.getElementById('i-watermark').innerText = data.watermark || '';
+        document.getElementById('i-subtitle').innerText = data.subtitle || '';
+        document.getElementById('i-title').innerText = data.title || '';
+
+        const featContainer = document.getElementById('i-features');
+        featContainer.innerHTML = '';
+        (data.features || []).forEach(f => {
+          featContainer.innerHTML += `
+            <div class="i-feature">
+              <div class="check-icon">${checkSvg}</div>
+              <div class="feat-text">${f}</div>
+            </div>`;
+        });
+      }
+    }
+
+    if (window.setupData) renderInfo();
+  </script>
+</body>
+
+</html>

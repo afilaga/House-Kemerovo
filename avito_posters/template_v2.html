@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --safe-zone: 80px;
+      --yellow: #FFDE00;
+      /* Avito red for high importance tags */
+      --red: #FF3B30;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1600px;
+      height: 1200px;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+    }
+
+    .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      z-index: 1;
+    }
+
+    /* === OVERLAYS (V2 - Luxury Solid) === */
+    .overlay-cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(0deg, rgba(82, 38, 20, 0.85) 0%, rgba(20, 10, 5, 0.4) 40%, rgba(0, 0, 0, 0) 100%);
+      z-index: 2;
+    }
+
+    .overlay-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(40, 20, 10, 0.75) 0%, rgba(20, 10, 5, 0.4) 45%, rgba(0, 0, 0, 0) 100%);
+      z-index: 2;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      padding: var(--safe-zone);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* === COVER STYLES (V2) === */
+    #cover-view {
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cover-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .status-tag {
+      background: #D9A86C;
+      color: #140A05;
+      font-weight: 900;
+      font-size: 36px;
+      padding: 18px 36px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .watermark-cover {
+      background: #FFFFFF;
+      color: #140A05;
+      font-size: 28px;
+      font-weight: 800;
+      padding: 18px 36px;
+      border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .cover-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .cover-badges {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .c-badge {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      font-weight: 700;
+      font-size: 32px;
+      padding: 14px 32px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .cover-price-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .c-title {
+      color: white;
+      font-weight: 900;
+      font-size: 120px;
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .c-price {
+      background: #D9A86C;
+      color: #140A05;
+      font-weight: 900;
+      font-size: 72px;
+      padding: 16px 40px;
+      border-radius: 4px;
+      line-height: 1;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border-bottom: 6px solid #A6733C;
+    }
+
+    /* === INNER SLIDES STYLES (V2) === */
+    .inner-layout {
+      display: none;
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    /* V2 Solid Panel - Corporate/Luxury feel */
+    .info-card {
+      background: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      border-left: none;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      max-width: 900px;
+    }
+
+    .i-watermark {
+      align-self: flex-start;
+      background: #D9A86C;
+      color: #140A05;
+      font-weight: 900;
+      font-size: 24px;
+      padding: 12px 24px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .i-titles {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .i-subtitle {
+      color: #D9A86C;
+      font-size: 36px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .i-title {
+      color: white;
+      font-size: 80px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -2px;
+    }
+
+    .i-features {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 16px;
+      border-left: 4px solid #D9A86C;
+      padding-left: 32px;
+    }
+
+    .i-feature {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .check-icon {
+      display: none;
+    }
+
+    .feat-text {
+      font-size: 38px;
+      font-weight: 500;
+      color: #FFFFFF;
+      letter-spacing: 0px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-image" id="bg"></div>
+  <div id="overlay-layer"></div>
+
+  <div class="content">
+
+    <!-- COVER LAYOUT -->
+    <div id="cover-view" style="display: none;">
+      <div class="cover-top">
+        <div class="status-tag">Продается</div>
+        <div class="watermark-cover" id="c-watermark">Кемерово, р-н Кировский</div>
+      </div>
+      <div class="cover-bottom">
+        <div class="cover-badges" id="c-badges"></div>
+        <div class="cover-price-row">
+          <div class="c-title" id="c-title"></div>
+          <div class="c-price" id="c-price"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INNER LAYOUT -->
+    <div id="inner-view" class="inner-layout">
+      <div class="info-card">
+        <div class="i-watermark" id="i-watermark"></div>
+        <div class="i-titles">
+          <div class="i-subtitle" id="i-subtitle"></div>
+          <div class="i-title" id="i-title"></div>
+        </div>
+        <div class="i-features" id="i-features"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const checkSvg = `<svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>`;
+
+    function renderInfo() {
+      const data = window.setupData || {};
+
+      let imgUrl = data.image || '';
+      if (imgUrl && !imgUrl.startsWith('http') && !imgUrl.startsWith('data:') && !imgUrl.startsWith('file://')) {
+        imgUrl = imgUrl;
+      }
+      document.getElementById('bg').style.backgroundImage = `url('${imgUrl}')`;
+
+      if (data.isCover) {
+        document.getElementById('overlay-layer').className = 'overlay-cover';
+        document.getElementById('cover-view').style.display = 'flex';
+        document.getElementById('inner-view').style.display = 'none';
+
+        document.getElementById('c-watermark').innerText = data.watermark || '';
+        document.getElementById('c-title').innerText = data.title || '';
+        document.getElementById('c-price').innerText = data.price || '';
+
+        const badgesContainer = document.getElementById('c-badges');
+        badgesContainer.innerHTML = '';
+        (data.badges || []).forEach(b => {
+          badgesContainer.innerHTML += `<div class="c-badge">${b}</div>`;
+        });
+      } else {
+        document.getElementById('overlay-layer').className = 'overlay-inner';
+        document.getElementById('cover-view').style.display = 'none';
+        document.getElementById('inner-view').style.display = 'flex';
+
+        document.getElementById('i-watermark').innerText = data.watermark || '';
+        document.getElementById('i-subtitle').innerText = data.subtitle || '';
+        document.getElementById('i-title').innerText = data.title || '';
+
+        const featContainer = document.getElementById('i-features');
+        featContainer.innerHTML = '';
+        (data.features || []).forEach(f => {
+          featContainer.innerHTML += `
+            <div class="i-feature">
+              <div class="check-icon">${checkSvg}</div>
+              <div class="feat-text">${f}</div>
+            </div>`;
+        });
+      }
+    }
+
+    if (window.setupData) renderInfo();
+  </script>
+</body>
+
+</html>

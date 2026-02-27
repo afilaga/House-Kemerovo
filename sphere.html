@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glowing 3D Sphere</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            background: #000;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Scene setup
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(
+            60,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        camera.position.z = 4;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.2;
+        document.body.appendChild(renderer.domElement);
+
+        // Mouse tracking
+        const mouse = { x: 0, y: 0 };
+        const targetRotation = { x: 0, y: 0 };
+
+        document.addEventListener('mousemove', (event) => {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // Sphere geometry
+        const geometry = new THREE.SphereGeometry(1.2, 64, 64);
+
+        // Glowing material
+        const material = new THREE.MeshStandardMaterial({
+            color: 0x00aaff,
+            emissive: 0x0044ff,
+            emissiveIntensity: 0.8,
+            metalness: 0.3,
+            roughness: 0.2,
+        });
+
+        const sphere = new THREE.Mesh(geometry, material);
+        scene.add(sphere);
+
+        // Inner glow sphere (slightly larger, transparent)
+        const glowGeometry = new THREE.SphereGeometry(1.35, 64, 64);
+        const glowMaterial = new THREE.MeshBasicMaterial({
+            color: 0x0088ff,
+            transparent: true,
+            opacity: 0.15,
+            side: THREE.BackSide,
+        });
+        const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
+        scene.add(glowMesh);
+
+        // Outer glow sphere
+        const outerGlowGeometry = new THREE.SphereGeometry(1.6, 32, 32);
+        const outerGlowMaterial = new THREE.MeshBasicMaterial({
+            color: 0x0066ff,
+            transparent: true,
+            opacity: 0.06,
+            side: THREE.BackSide,
+        });
+        const outerGlowMesh = new THREE.Mesh(outerGlowGeometry, outerGlowMaterial);
+        scene.add(outerGlowMesh);
+
+        // Wireframe overlay for visual interest
+        const wireGeometry = new THREE.SphereGeometry(1.21, 32, 32);
+        const wireMaterial = new THREE.MeshBasicMaterial({
+            color: 0x00ccff,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.12,
+        });
+        const wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
+        scene.add(wireMesh);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x111122, 0.5);
+        scene.add(ambientLight);
+
+        const pointLight1 = new THREE.PointLight(0x0088ff, 2, 20);
+        pointLight1.position.set(3, 3, 3);
+        scene.add(pointLight1);
+
+        const pointLight2 = new THREE.PointLight(0x8800ff, 1.5, 20);
+        pointLight2.position.set(-3, -2, 2);
+        scene.add(pointLight2);
+
+        const pointLight3 = new THREE.PointLight(0x00ffaa, 1, 15);
+        pointLight3.position.set(0, 3, -3);
+        scene.add(pointLight3);
+
+        // Particle field around the sphere
+        const particleCount = 500;
+        const particleGeometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+
+        for (let i = 0; i < particleCount; i++) {
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos(2 * Math.random() - 1);
+            const r = 1.8 + Math.random() * 1.5;
+            positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+            positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+            positions[i * 3 + 2] = r * Math.cos(phi);
+        }
+
+        particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        const particleMaterial = new THREE.PointsMaterial({
+            color: 0x4488ff,
+            size: 0.015,
+            transparent: true,
+            opacity: 0.6,
+            blending: THREE.AdditiveBlending,
+        });
+
+        const particles = new THREE.Points(particleGeometry, particleMaterial);
+        scene.add(particles);
+
+        // Animation
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const elapsed = clock.getElapsedTime();
+            const delta = clock.getDelta();
+
+            // Base rotation
+            const baseSpeedX = 0.003;
+            const baseSpeedY = 0.005;
+
+            // Mouse influence on rotation
+            targetRotation.x = mouse.y * 0.5;
+            targetRotation.y = mouse.x * 0.5;
+
+            // Smooth interpolation toward mouse-influenced rotation
+            sphere.rotation.x += baseSpeedX + (targetRotation.x - sphere.rotation.x) * 0.02;
+            sphere.rotation.y += baseSpeedY + (targetRotation.y - sphere.rotation.y) * 0.02;
+
+            // Sync wireframe and glow meshes
+            wireMesh.rotation.copy(sphere.rotation);
+            glowMesh.rotation.copy(sphere.rotation);
+            outerGlowMesh.rotation.copy(sphere.rotation);
+
+            // Rotate particles slowly
+            particles.rotation.y += 0.001;
+            particles.rotation.x += 0.0005;
+
+            // Pulsing glow effect
+            const pulse = Math.sin(elapsed * 2) * 0.1 + 0.8;
+            material.emissiveIntensity = pulse;
+            glowMaterial.opacity = 0.1 + Math.sin(elapsed * 1.5) * 0.05;
+            outerGlowMaterial.opacity = 0.04 + Math.sin(elapsed * 1.2) * 0.02;
+
+            // Move lights based on mouse for dynamic reflections
+            pointLight1.position.x = 3 + mouse.x * 2;
+            pointLight1.position.y = 3 + mouse.y * 2;
+            pointLight2.position.x = -3 + mouse.x;
+            pointLight2.position.y = -2 + mouse.y;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+
+</html>

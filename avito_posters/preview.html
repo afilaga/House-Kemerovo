@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Превью карточек Авито</title>
+    <style>
+        body {
+            background-color: #f0f0f5;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(800px, 1fr));
+            gap: 40px;
+            justify-content: center;
+        }
+
+        .slide-wrapper {
+            position: relative;
+            /* Scale the 1600x1200 down by exactly 0.5 to fit in 800x600 */
+            width: 800px;
+            height: 600px;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .slide-wrapper:hover {
+            transform: scale(1.02);
+            z-index: 10;
+        }
+
+        /* The actual iframe needs to be 1600x1200 and scaled via CSS */
+        iframe {
+            width: 1600px;
+            height: 1200px;
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: scale(0.5);
+            transform-origin: top left;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: #000;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 100px;
+            font-weight: bold;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+
+        button {
+            background: #FFDE00;
+            color: black;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .slide-id {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 20;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="controls">
+        <span id="status">Загрузка данных...</span>
+        <button onclick="window.location.reload()">Обновить (F5)</button>
+    </div>
+
+    <!-- Container for the injected iframes -->
+    <div id="grid"></div>
+
+    <script>
+        async function init() {
+            try {
+                const response = await fetch('./data.json?t=' + Date.now());
+                const data = await response.json();
+
+                const grid = document.getElementById('grid');
+                grid.innerHTML = ''; // clear
+
+                data.forEach((slide, idx) => {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'slide-wrapper';
+
+                    const marker = document.createElement('div');
+                    marker.className = 'slide-id';
+                    marker.innerText = `[${idx + 1}] ${slide.id}`;
+                    wrapper.appendChild(marker);
+
+                    const iframe = document.createElement('iframe');
+                    iframe.src = './template.html';
+
+                    // Once iframe loads, push the setupData into it
+                    iframe.onload = () => {
+                        iframe.contentWindow.setupData = slide;
+                        iframe.contentWindow.renderInfo();
+                    };
+
+                    wrapper.appendChild(iframe);
+                    document.body.appendChild(wrapper);
+                });
+
+                document.getElementById('status').innerText = `Загружено слайдов: ${data.length}`;
+
+            } catch (e) {
+                document.getElementById('status').innerText = 'Ошибка загрузки data.json';
+                console.error(e);
+            }
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
