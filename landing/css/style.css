@@ -866,11 +866,19 @@ footer p a {
   .right-align .content,
   .left-align .content {
     align-items: flex-start;
-    padding-top: 30px;
+    padding-top: 20px;
     padding-bottom: 0px;
     height: auto;
     display: flex;
     flex-direction: column;
+  }
+
+  .info-card {
+    gap: 12px;
+  }
+
+  .features-list {
+    gap: 12px;
   }
 
   .fomo-text {
