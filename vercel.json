@@ -1,16 +1,8 @@
 {
-    "version": 2,
-    "name": "house-kemerovo",
-    "builds": [
+    "rewrites": [
         {
-            "src": "landing/index.html",
-            "use": "@vercel/static"
-        }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/landing/$1"
+            "source": "/(.*)",
+            "destination": "/landing/$1"
         }
     ]
 }
