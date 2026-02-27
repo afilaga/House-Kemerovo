@@ -855,7 +855,13 @@ footer p a {
   }
 
   .cta-section {
-    min-height: 100vh;
+    min-height: auto;
+    padding-bottom: 40px;
+    padding-top: 40px;
+  }
+
+  .cta-content {
+    justify-content: flex-start;
   }
 
   .overlay-slide-right,
