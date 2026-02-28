@@ -18,8 +18,6 @@
 
     <!-- Favicon -->
     <link rel="icon" href="/landing/favicon.svg" type="image/svg+xml">
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -43,64 +41,6 @@
     <!-- Preload hero image for LCP -->
     <link rel="preload" as="image" href="images/main.webp">
 
-    <!-- JSON-LD Structured Data: RealEstateListing -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "RealEstateListing",
-        "name": "Роскошный коттедж 191 м² в Кемерово — продажа от собственника",
-        "description": "Современный двухэтажный коттедж площадью 191 м² на участке 7.5 соток в Кировском районе Кемерово. 5 комнат, 2 ванные комнаты, теплый гараж на 2 авто, евроремонт 2024 года. Полистиролбетон, 20 кВт электричества (3 фазы), умное отопление. Прямая продажа от собственника без комиссии.",
-        "url": "https://kemerovohouse.surma.su/",
-        "datePosted": "2025-12-01",
-        "image": [
-            "https://kemerovohouse.surma.su/images/main.webp",
-            "https://kemerovohouse.surma.su/images/kitchen.webp",
-            "https://kemerovohouse.surma.su/images/bedroom_main.webp",
-            "https://kemerovohouse.surma.su/images/garage.webp",
-            "https://kemerovohouse.surma.su/images/terrace1.webp"
-        ],
-        "offers": {
-            "@type": "Offer",
-            "price": "13500000",
-            "priceCurrency": "RUB",
-            "availability": "https://schema.org/InStock",
-            "validThrough": "2026-04-30",
-            "seller": {
-                "@type": "Person",
-                "name": "Собственник",
-                "telephone": "+7-905-906-00-26"
-            }
-        },
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Кемерово",
-            "addressRegion": "Кемеровская область",
-            "addressCountry": "RU",
-            "streetAddress": "Кировский район"
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": "55.3333",
-            "longitude": "86.0833"
-        },
-        "numberOfRooms": 5,
-        "numberOfBathroomsTotal": 2,
-        "floorSize": {
-            "@type": "QuantitativeValue",
-            "value": 191,
-            "unitCode": "MTK"
-        },
-        "lotSize": {
-            "@type": "QuantitativeValue",
-            "value": 750,
-            "unitCode": "MTK"
-        },
-        "yearBuilt": 2017,
-        "numberOfFullBathrooms": 2,
-        "numberOfBedrooms": 4,
-        "parkingFacility": "Теплый гараж на 2 автомобиля"
-    }
-    </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
@@ -123,28 +63,30 @@
 
         ym(107041482, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: "dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce: true, trackLinks: true });
     </script>
-    <noscript>
-        <div><img src="https://mc.yandex.ru/watch/107041482" style="position:absolute; left:-9999px;" alt="" /></div>
-    </noscript>
     <!-- /Yandex.Metrika counter -->
 
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SingleFamilyResidence",
-      "name": "Кирпичный дом в Кировском районе Кемерово",
-      "description": "Премиальный дом с участком стоимостью 13 500 000 рублей в Кировском районе Кемерова. Развитая инфраструктура, рядом Никольский собор и школа №56.",
-      "mainEntityOfPage": "https://kemerovohouse.surma.su/",
+      "@id": "https://kemerovohouse.surma.su/#house",
+      "name": "Кирпичный дом 191 м² в Кировском районе Кемерово",
+      "description": "Продажа кирпичного дома 191 м² с участком 7.5 соток в Кировском районе Кемерово. 5 комнат, 2 санузла, теплый гараж на 2 автомобиля, евроремонт, возможна ипотека.",
+      "url": "https://kemerovohouse.surma.su/",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://kemerovohouse.surma.su/"
+      },
       "image": [
         {
           "@type": "ImageObject",
           "url": "https://kemerovohouse.surma.su/images/main.webp",
-          "caption": "Кирпичный дом в Кировском районе Кемерово с участком"
+          "caption": "Кирпичный дом в Кировском районе Кемерово"
         },
         {
           "@type": "ImageObject",
           "url": "https://kemerovohouse.surma.su/images/kitchen.webp",
-          "caption": "Кухня-гостиная в премиальном доме в Кемерово"
+          "caption": "Кухня-гостиная в доме 191 м²"
         },
         {
           "@type": "ImageObject",
@@ -154,24 +96,61 @@
         {
           "@type": "ImageObject",
           "url": "https://kemerovohouse.surma.su/images/rear-bottom.webp",
-          "caption": "Участок и задняя часть дома в Кировском районе"
+          "caption": "Участок и задний фасад дома"
         }
       ],
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Кировский район",
         "addressLocality": "Кемерово",
-        "addressRegion": "Кемеровская область"
+        "addressRegion": "Кемеровская область",
+        "addressCountry": "RU"
       },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 55.3333,
+        "longitude": 86.0833
+      },
+      "floorSize": {
+        "@type": "QuantitativeValue",
+        "value": 191,
+        "unitCode": "MTK"
+      },
+      "numberOfRooms": 5,
+      "numberOfBedrooms": 4,
+      "numberOfBathroomsTotal": 2,
+      "yearBuilt": 2017,
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Теплый гараж",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Ипотека",
+          "value": true
+        }
+      ],
       "offers": {
         "@type": "Offer",
-        "price": "13500000",
-        "priceCurrency": "RUB"
+        "price": 13500000,
+        "priceCurrency": "RUB",
+        "availability": "https://schema.org/InStock",
+        "seller": {
+          "@type": "Person",
+          "name": "Собственник",
+          "telephone": "+7-905-906-00-26"
+        }
       }
     }
     </script>
 </head>
 
 <body>
+    <noscript>
+        <img src="https://mc.yandex.ru/watch/107041482" style="position:absolute; left:-9999px;" alt="">
+    </noscript>
 
     <!-- NAVIGATION -->
     <nav class="navbar">
@@ -424,7 +403,6 @@
                 </ul>
             </div>
         </div>
-        </div>
     </section>
 
     <!-- SLIDE 4: WARDROBE -->
@@ -470,7 +448,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
         </div>
     </section>
 
@@ -980,7 +957,7 @@
                     class="btn-whatsapp">Связаться с собственником в Telegram</a>
             </div>
 
-            <div class="cta-photo-gallery" aria-label="Фотографии дома">
+            <div class="cta-photo-gallery" role="group" aria-label="Фотографии дома">
                 <div class="swiper cta-photo-swiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
@@ -1024,7 +1001,7 @@
                 Объект расположен: г. Кемерово, Кировский район
             </address>
             <p class="footer-name">Andrey Filatiev</p>
-            <div class="footer-social" aria-label="Контакты разработчика">
+            <div class="footer-social" role="group" aria-label="Контакты разработчика">
                 <a href="https://t.me/filatievpro" target="_blank" rel="noopener noreferrer" aria-label="Telegram Andrey Filatiev" title="Telegram">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M21.94 4.66a1 1 0 0 0-1.04-.2L2.2 11.6a1 1 0 0 0 .08 1.88l4.93 1.58 1.8 5.4a1 1 0 0 0 1.75.3l2.78-3.52 4.6 3.4a1 1 0 0 0 1.57-.56l2.25-14.73a1 1 0 0 0-.02-.69zM8.9 14.35l9.26-6.04-7.83 7.77-.39 1.6-1.04-3.33z" />
