@@ -16,3 +16,8 @@ avito_posters/output_v3/
 !landing/images/**/*.jpg
 !landing/images/**/*.png
 !landing/images/**/*.jpeg
+
+# Secrets and Logs
+.playwright-mcp/
+analytics-*.json
+yandex_api_access_report.md
