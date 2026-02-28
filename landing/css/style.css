@@ -773,6 +773,20 @@ h5 {
   line-height: 1.5;
 }
 
+.bottom-photo {
+  min-height: auto;
+  padding: 0;
+  display: block;
+  background: var(--dark);
+}
+
+.bottom-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
 /* CTA DISCLAIMER GOLD */
 .disclaimer-gold {
   font-size: 20px;
@@ -1179,5 +1193,9 @@ footer p a {
 
   .agent-section p {
     font-size: 13px;
+  }
+
+  .bottom-photo {
+    margin-top: 6px;
   }
 }
