@@ -68,81 +68,97 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "SingleFamilyResidence",
-      "@id": "https://kemerovohouse.surma.su/#house",
-      "name": "Кирпичный дом 191 м² в Кировском районе Кемерово",
-      "description": "Продажа кирпичного дома 191 м² с участком 7.5 соток в Кировском районе Кемерово. 5 комнат, 2 санузла, теплый гараж на 2 автомобиля, евроремонт, возможна ипотека.",
-      "url": "https://kemerovohouse.surma.su/",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://kemerovohouse.surma.su/"
-      },
-      "image": [
+      "@graph": [
         {
-          "@type": "ImageObject",
-          "url": "https://kemerovohouse.surma.su/images/main.webp",
-          "caption": "Кирпичный дом в Кировском районе Кемерово"
+          "@type": "WebPage",
+          "@id": "https://kemerovohouse.surma.su/#webpage",
+          "url": "https://kemerovohouse.surma.su/",
+          "name": "Роскошный дом 191 м²",
+          "description": "Продажа кирпичного дома 191 м² с участком 7.5 соток в Кировском районе Кемерова.",
+          "inLanguage": "ru-RU"
         },
         {
-          "@type": "ImageObject",
-          "url": "https://kemerovohouse.surma.su/images/kitchen.webp",
-          "caption": "Кухня-гостиная в доме 191 м²"
+          "@type": "SingleFamilyResidence",
+          "@id": "https://kemerovohouse.surma.su/#house",
+          "name": "Кирпичный дом 191 м² в Кировском районе Кемерова",
+          "description": "5 комнат, 2 санузла, теплый гараж на 2 автомобиля, евроремонт, возможна ипотека.",
+          "url": "https://kemerovohouse.surma.su/",
+          "mainEntityOfPage": {
+            "@id": "https://kemerovohouse.surma.su/#webpage"
+          },
+          "image": [
+            "https://kemerovohouse.surma.su/images/main.webp",
+            "https://kemerovohouse.surma.su/images/kitchen.webp",
+            "https://kemerovohouse.surma.su/images/garage/1.webp?v=2",
+            "https://kemerovohouse.surma.su/images/rear-bottom.webp"
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Кировский район",
+            "addressLocality": "Кемерово",
+            "addressRegion": "Кемеровская область",
+            "addressCountry": "RU"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 55.3333,
+            "longitude": 86.0833
+          },
+          "floorSize": {
+            "@type": "QuantitativeValue",
+            "value": 191,
+            "unitCode": "MTK"
+          },
+          "numberOfRooms": 5,
+          "numberOfBedrooms": 4,
+          "numberOfBathroomsTotal": 2,
+          "yearBuilt": 2017,
+          "offers": {
+            "@id": "https://kemerovohouse.surma.su/#offer"
+          }
         },
         {
-          "@type": "ImageObject",
-          "url": "https://kemerovohouse.surma.su/images/garage/1.webp?v=2",
-          "caption": "Теплый гараж на 2 автомобиля"
+          "@type": "Product",
+          "@id": "https://kemerovohouse.surma.su/#product",
+          "name": "Дом 191 м² в Кировском районе Кемерова",
+          "description": "Кирпичный двухэтажный дом с участком 7.5 соток, 5 комнатами и теплым гаражом.",
+          "url": "https://kemerovohouse.surma.su/",
+          "image": [
+            "https://kemerovohouse.surma.su/images/main.webp",
+            "https://kemerovohouse.surma.su/images/kitchen.webp"
+          ],
+          "category": "Недвижимость",
+          "offers": {
+            "@id": "https://kemerovohouse.surma.su/#offer"
+          }
         },
         {
-          "@type": "ImageObject",
-          "url": "https://kemerovohouse.surma.su/images/rear-bottom.webp",
-          "caption": "Участок и задний фасад дома"
+          "@type": "Offer",
+          "@id": "https://kemerovohouse.surma.su/#offer",
+          "url": "https://kemerovohouse.surma.su/",
+          "price": 13500000,
+          "priceCurrency": "RUB",
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/UsedCondition",
+          "seller": {
+            "@type": "Person",
+            "name": "Собственник",
+            "telephone": "+7-905-906-00-26"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://kemerovohouse.surma.su/#breadcrumbs",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Продажа дома в Кемерово",
+              "item": "https://kemerovohouse.surma.su/"
+            }
+          ]
         }
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Кировский район",
-        "addressLocality": "Кемерово",
-        "addressRegion": "Кемеровская область",
-        "addressCountry": "RU"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 55.3333,
-        "longitude": 86.0833
-      },
-      "floorSize": {
-        "@type": "QuantitativeValue",
-        "value": 191,
-        "unitCode": "MTK"
-      },
-      "numberOfRooms": 5,
-      "numberOfBedrooms": 4,
-      "numberOfBathroomsTotal": 2,
-      "yearBuilt": 2017,
-      "amenityFeature": [
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "Теплый гараж",
-          "value": true
-        },
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "Ипотека",
-          "value": true
-        }
-      ],
-      "offers": {
-        "@type": "Offer",
-        "price": 13500000,
-        "priceCurrency": "RUB",
-        "availability": "https://schema.org/InStock",
-        "seller": {
-          "@type": "Person",
-          "name": "Собственник",
-          "telephone": "+7-905-906-00-26"
-        }
-      }
+      ]
     }
     </script>
 </head>
