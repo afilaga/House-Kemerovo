@@ -808,13 +808,48 @@ footer p a {
 @media (max-width: 768px) {
   .hero-top {
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+    margin-bottom: 20px;
   }
 
+  /* Make tags a lot smaller and adjust padding */
   .tag-sale,
   .location {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+
+  .badge {
+    font-size: 9px;
+    padding: 4px 8px;
+  }
+
+  .badges {
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  /* Reduce title and price heavily (by roughly 60%) */
+  .hero-title {
+    font-size: 28px !important;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .price-tag {
+    font-size: 20px !important;
+    padding: 8px 16px;
+    border-bottom: 3px solid var(--gold-dark);
+    margin-bottom: 8px;
+  }
+
+  .hero-buttons {
+    margin-top: 20px;
+  }
+
+  .hero-buttons .btn-primary {
+    padding: 12px 20px;
     font-size: 14px;
-    padding: 10px 16px;
   }
 
   .info-card {
@@ -833,33 +868,50 @@ footer p a {
     font-size: 16px !important;
   }
 
-  /* MOBILE FEATURE SLIDES (Stack image top, text below) */
-  .section.feature-slide {
-    flex-direction: column;
-    height: auto !important;
-    min-height: 0 !important;
-    /* CRITICAL: properly override 100vh from .section */
-    padding-bottom: 48px;
-    background-color: var(--dark);
-    display: flex;
-    justify-content: flex-start;
+  /* HERO ON MOBILE: House is horizontal (uncropped), blended into content */
+  .hero-content {
+    height: auto;
+    padding-top: 55vw;
+    /* Reserve exactly 16:9 horizontal image space */
+    padding-bottom: 40px;
+    min-height: 100vh;
+    justify-content: flex-end;
+    /* Push content to bottom organically */
+    gap: 16px;
+    /* Stop overlap between top and bottom hero sections */
   }
 
-  .section.feature-slide .bg-wrapper {
-    position: relative;
-    width: 100%;
-    height: 50vh;
-    min-height: 320px;
-    flex-shrink: 0;
+  .hero .bg-wrapper {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
   }
 
-  /* На мобиле оверлеи — лёгкий затемнитель снизу, без полного чёрного */
-  .section.feature-slide .overlay-slide,
-  .section.feature-slide .overlay-slide-right {
+  .hero .bg-image {
+    background-size: 100% auto !important;
+    /* Forces horizontal format, uncropped */
+    background-position: top center !important;
+    background-repeat: no-repeat !important;
+  }
+
+  /* Blends the bottom of the horizontal hero image into the dark page background gently */
+  .hero .overlay-hero {
     background: linear-gradient(180deg,
         rgba(20, 10, 5, 0) 0%,
-        rgba(20, 10, 5, 0.25) 60%,
-        rgba(20, 10, 5, 0.55) 100%);
+        rgba(20, 10, 5, 0.4) 40vw,
+        rgba(20, 10, 5, 0.85) 55vw,
+        rgba(20, 10, 5, 1) 100%) !important;
+  }
+
+  /* MOBILE FEATURE SLIDES: TEXT ON PHOTO (100vh absolute background) */
+  /* NO FULL BLACK. Keep photo visible underneath text */
+  .overlay-slide,
+  .overlay-slide-right {
+    background: linear-gradient(180deg,
+        rgba(20, 10, 5, 0) 40%,
+        rgba(20, 10, 5, 0.45) 75%,
+        rgba(20, 10, 5, 0.7) 100%) !important;
   }
 
   .cta-section {
@@ -875,11 +927,10 @@ footer p a {
   .right-align .content,
   .left-align .content {
     align-items: flex-start;
-    padding-top: 24px;
-    padding-bottom: 0;
-    height: auto;
-    display: flex;
-    flex-direction: column;
+    justify-content: flex-end;
+    /* Push text to the bottom over the gradient */
+    padding-bottom: 40px;
+    height: 100vh;
   }
 
   .info-card {
