@@ -178,8 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Generate inner DOM structure for top 12 images initially
         images.slice(0, 12).forEach((imgEntry, idx) => {
             const imgFile = typeof imgEntry === 'string' ? imgEntry : imgEntry.src;
+            const imgSlug = imgFile ? imgFile.replace(/\.[^.]+$/, '') : '';
             const imgAlt = typeof imgEntry === 'string'
-                ? `Фото интерьера коттеджа в Кемерово — ${imgFile.replace('.JPG', '')}`
+                ? `Фото дома в Кировском районе Кемерово — ${imgSlug}`
                 : imgEntry.alt;
 
             if (!imgFile) {
