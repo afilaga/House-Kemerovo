@@ -888,7 +888,12 @@ footer p a {
     align-items: stretch;
   }
 
+  .hero-content {
+    order: 1;
+  }
+
   .hero .bg-wrapper {
+    order: 2;
     position: relative !important;
     width: 100%;
     height: 56vw;
@@ -984,7 +989,12 @@ footer p a {
     flex-direction: column;
   }
 
+  .section.feature-slide .content {
+    order: 1;
+  }
+
   .section.feature-slide .bg-wrapper {
+    order: 2;
     position: relative !important;
     width: 100%;
     height: 56vw;
