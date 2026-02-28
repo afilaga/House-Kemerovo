@@ -667,6 +667,11 @@ h5 {
   height: clamp(220px, 36vw, 430px);
 }
 
+.cta-photo-swiper .swiper-wrapper,
+.cta-photo-swiper .swiper-slide {
+  height: 100%;
+}
+
 .cta-photo-swiper .bg-image {
   width: 100%;
   height: 100%;
