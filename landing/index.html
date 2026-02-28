@@ -829,37 +829,6 @@
         </div>
     </section>
 
-    <!-- CTA MODULE -->
-    <section class="section cta-section" id="contact">
-        <div class="bg-wrapper">
-            <div class="bg-image parallax-bg" style="background-image: url('images/cta1.webp')"></div>
-            <div class="overlay-cta"></div>
-        </div>
-        <div class="container cta-content slide-up">
-            <div class="watermark-tag mx-auto mb-md">Связаться</div>
-            <h2 class="title text-center text-white mb-md">Купить дом в Кемерово — успейте до конца апреля!</h2>
-            <div class="cta-dark-box">
-                <p class="subtitle text-center">Один взрослый собственник. Ответим на все
-                    вопросы без посредников.</p>
-            </div>
-
-            <div class="action-buttons">
-                <a href="tel:+79059060026" class="btn-primary">Позвонить</a>
-                <a href="https://t.me/ersergei21?text=Здравствуйте!%20Я%20по%20поводу%20дома.%20Хочу%20получить%20видео-обзор."
-                    target="_blank" class="btn-whatsapp">Хотите видео-обзор?</a>
-                <a href="https://t.me/ersergei21?text=Здравствуйте!%20Я%20по%20поводу%20дома" target="_blank"
-                    class="btn-whatsapp">Связаться с собственником в Telegram</a>
-            </div>
-
-            <p class="disclaimer mt-lg text-center disclaimer-gold">
-                Цена 2025 года актуальна до конца апреля 2026 года в связи с активным ростом цен.<br>
-                <span class="text-white">Дом проходит по ипотеке.</span>
-            </p>
-            <p class="disclaimer text-center">Просмотры возможны в удобное для вас время. <br>Документы полностью
-                готовы к сделке.</p>
-        </div>
-    </section>
-
     <!-- TECH SPECS SECTION -->
     <section class="section tech-section">
         <div class="container container-narrow">
@@ -934,6 +903,50 @@
                     </ul>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- CTA MODULE -->
+    <section class="section cta-section" id="contact">
+        <div class="container cta-content slide-up">
+            <div class="watermark-tag mx-auto mb-md">Связаться</div>
+            <h2 class="title text-center text-white mb-md">Купить дом в Кемерово — успейте до конца апреля!</h2>
+            <div class="cta-dark-box">
+                <p class="subtitle text-center">Один взрослый собственник. Ответим на все
+                    вопросы без посредников.</p>
+            </div>
+
+            <div class="action-buttons">
+                <a href="tel:+79059060026" class="btn-primary">Позвонить</a>
+                <a href="https://t.me/ersergei21?text=Здравствуйте!%20Я%20по%20поводу%20дома.%20Хочу%20получить%20видео-обзор."
+                    target="_blank" class="btn-whatsapp">Хотите видео-обзор?</a>
+                <a href="https://t.me/ersergei21?text=Здравствуйте!%20Я%20по%20поводу%20дома" target="_blank"
+                    class="btn-whatsapp">Связаться с собственником в Telegram</a>
+            </div>
+
+            <div class="cta-photo-gallery" aria-label="Фотографии дома">
+                <div class="swiper cta-photo-swiper" style="width: 100%; height: 100%;">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="bg-image" style="background-image: url('images/cta1.webp');"></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="bg-image" style="background-image: url('images/rear-bottom.webp');"></div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+
+            <p class="disclaimer mt-lg text-center disclaimer-gold">
+                Цена 2025 года актуальна до конца апреля 2026 года в связи с активным ростом цен.<br>
+                <span class="text-white">Дом проходит по ипотеке.</span>
+            </p>
+            <p class="disclaimer text-center">Просмотры возможны в удобное для вас время. <br>Документы полностью
+                готовы к сделке.</p>
+        </div>
     </section>
 
     <!-- AGENT SECTION -->
@@ -946,11 +959,6 @@
             <a href="https://t.me/ersergei21?text=Здравствуйте!%20Я%20агент.%20Хочу%20обсудить%20размещение%20вашего%20дома"
                 target="_blank" class="btn-primary-small">Связаться (Я агент)</a>
         </div>
-    </section>
-
-    <section class="bottom-photo" aria-label="Вид задней части дома">
-        <img src="images/rear-bottom.webp" width="2752" height="1536"
-            alt="Задняя часть дома с террасой и участком в дневном свете" loading="lazy">
     </section>
 
     <!-- FOOTER -->
@@ -1115,7 +1123,8 @@
                 { selector: '.bath1-swiper', options: generalSwiperOptions },
                 { selector: '.bath2-swiper', options: generalSwiperOptions },
                 { selector: '.garage-swiper', options: generalSwiperOptions },
-                { selector: '.terrace-swiper', options: generalSwiperOptions }
+                { selector: '.terrace-swiper', options: generalSwiperOptions },
+                { selector: '.cta-photo-swiper', options: { ...generalSwiperOptions, effect: 'slide', speed: isMobile ? 420 : 600 } }
             ];
 
             if ('IntersectionObserver' in window) {

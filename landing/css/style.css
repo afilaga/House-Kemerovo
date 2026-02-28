@@ -645,6 +645,28 @@ h5 {
   justify-content: center;
 }
 
+.cta-photo-gallery {
+  width: 100%;
+  max-width: 980px;
+  margin-top: 24px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+.cta-photo-swiper {
+  width: 100%;
+  height: clamp(220px, 36vw, 430px);
+}
+
+.cta-photo-swiper .bg-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
 .disclaimer {
   font-size: 14px;
   color: rgba(255, 255, 255, 0.5);
@@ -771,20 +793,6 @@ h5 {
   margin-left: auto;
   margin-right: auto;
   line-height: 1.5;
-}
-
-.bottom-photo {
-  min-height: auto;
-  padding: 0;
-  display: block;
-  background: var(--dark);
-}
-
-.bottom-photo img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
 }
 
 /* CTA DISCLAIMER GOLD */
@@ -1097,27 +1105,30 @@ footer p a {
     font-size: 14px !important;
   }
 
-  /* CTA SECTION — MOBILE: no background image, clean card layout */
+  /* CTA SECTION — MOBILE */
   .cta-section {
     min-height: auto !important;
-    padding: 0;
+    padding: 24px 0;
     flex-direction: column;
-  }
-
-  .cta-section .bg-wrapper {
-    position: relative !important;
-    width: 100%;
-    height: 56vw;
-    /* Horizontal photo, same as other slides */
-    flex-shrink: 0;
   }
 
   .cta-content {
     justify-content: flex-start;
-    padding: 30px 20px;
+    padding: 10px 20px 30px;
     height: auto;
     text-align: center;
     align-items: center;
+  }
+
+  .cta-photo-gallery {
+    margin-top: 18px;
+    border-radius: 10px;
+  }
+
+  .cta-photo-swiper {
+    height: 56vw;
+    min-height: 210px;
+    max-height: 330px;
   }
 
   .cta-content .title {
@@ -1195,7 +1206,4 @@ footer p a {
     font-size: 13px;
   }
 
-  .bottom-photo {
-    margin-top: 6px;
-  }
 }
