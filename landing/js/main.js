@@ -176,13 +176,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (galleryGrid && images.length > 0) {
         // Generate inner DOM structure for top 12 images initially
-        images.slice(0, 12).forEach((imgFile, idx) => {
+        images.slice(0, 12).forEach((imgEntry, idx) => {
+            const imgFile = typeof imgEntry === 'string' ? imgEntry : imgEntry.src;
+            const imgAlt = typeof imgEntry === 'string'
+                ? `Фото интерьера коттеджа в Кемерово — ${imgFile.replace('.JPG', '')}`
+                : imgEntry.alt;
+
+            if (!imgFile) {
+                return;
+            }
+
             const item = document.createElement('div');
             item.className = 'gallery-item visible';
             // slight delay based on index for fade animation
             item.style.animationDelay = `${idx * 0.1}s`;
             item.innerHTML = `
-                <img src="images/gallery/${imgFile}" loading="lazy" alt="Фото интерьера коттеджа в Кемерово — ${imgFile.replace('.JPG', '')}">
+                <img src="images/gallery/${imgFile}" loading="lazy" alt="${imgAlt}">
                 <div class="gallery-overlay">
                     <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
                 </div>

@@ -701,6 +701,31 @@ h5 {
   color: var(--gold);
 }
 
+.seo-infrastructure,
+.seo-mortgage {
+  padding: 40px 0;
+  background: #16161f;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.seo-mortgage {
+  background: #14141c;
+}
+
+.seo-infrastructure h2,
+.seo-mortgage h2 {
+  font-size: 30px;
+  margin-bottom: 14px;
+  color: var(--white);
+}
+
+.seo-infrastructure p,
+.seo-mortgage p {
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.82);
+}
+
 /* TECH SPECS SECTION */
 .tech-section {
   background-color: #121212;
@@ -1172,6 +1197,23 @@ footer p a {
   .info-section {
     min-height: auto !important;
     padding: 30px 0;
+  }
+
+  .seo-infrastructure,
+  .seo-mortgage {
+    padding: 28px 0;
+  }
+
+  .seo-infrastructure h2,
+  .seo-mortgage h2 {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .seo-infrastructure p,
+  .seo-mortgage p {
+    font-size: 14px;
+    line-height: 1.55;
   }
 
   .tech-section {
