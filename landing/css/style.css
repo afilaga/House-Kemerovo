@@ -825,6 +825,56 @@ footer p a {
   font-weight: 600;
 }
 
+.footer-name {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 8px;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.footer-social a {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.72);
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-social a:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.footer-social svg {
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+}
+
+.footer-credits {
+  font-size: 11px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.52);
+  margin-bottom: 4px;
+}
+
+.footer-credits a {
+  font-weight: 500;
+  color: rgba(217, 168, 108, 0.95);
+}
+
 /* MEDIA QUERIES */
 @media (max-width: 768px) {
 

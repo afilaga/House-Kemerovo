@@ -29,6 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // GSAP INITIALIZATION
     const canAnimate = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && !prefersReducedMotion;
+    const revealProfile = isMobile
+        ? { y: 82, duration: 1.05, stagger: 0.12, start: 'top 94%', ease: 'expo.out' }
+        : { y: 100, duration: 1, stagger: 0.15, start: 'top 85%' };
+    const listProfile = isMobile
+        ? { x: -36, duration: 0.8, stagger: 0.1, start: 'top 95%', ease: 'expo.out' }
+        : { x: -30, duration: 0.8, stagger: 0.15, start: 'top 80%' };
     if (canAnimate) {
         gsap.registerPlugin(ScrollTrigger);
     }
@@ -36,18 +42,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (canAnimate) {
         // 1. Initial Hero Reveal Animation
         gsap.fromTo('.tag-sale',
-            { y: -20, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.2 }
+            { y: isMobile ? -28 : -20, opacity: 0 },
+            { y: 0, opacity: 1, duration: isMobile ? 0.95 : 0.8, ease: isMobile ? 'expo.out' : 'power3.out', delay: 0.2 }
         );
 
         gsap.fromTo('.location',
-            { y: -20, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.4 }
+            { y: isMobile ? -28 : -20, opacity: 0 },
+            { y: 0, opacity: 1, duration: isMobile ? 0.95 : 0.8, ease: isMobile ? 'expo.out' : 'power3.out', delay: 0.45 }
         );
 
         gsap.fromTo('.gs-reveal > *',
-            { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: 'power3.out', delay: 0.6 }
+            { y: isMobile ? 72 : 50, opacity: 0 },
+            { y: 0, opacity: 1, duration: isMobile ? 1.15 : 1, stagger: isMobile ? 0.12 : 0.15, ease: isMobile ? 'expo.out' : 'power3.out', delay: isMobile ? 0.5 : 0.6 }
         );
     }
 
@@ -72,19 +78,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 3. Info Cards Slide Up Reveal
-    if (canAnimate && !isMobile) {
+    if (canAnimate) {
         const infoCards = document.querySelectorAll('.info-card, .cta-content');
         infoCards.forEach(card => {
             gsap.fromTo(card,
-                { y: 100, opacity: 0 },
+                { y: revealProfile.y, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 1,
-                    ease: 'power3.out',
+                    duration: revealProfile.duration,
+                    ease: revealProfile.ease || 'power3.out',
                     scrollTrigger: {
                         trigger: card,
-                        start: 'top 85%',
+                        start: revealProfile.start,
                         once: true
                     }
                 }
@@ -93,21 +99,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. Feature sequence animation inside slides
-    if (canAnimate && !isMobile) {
+    if (canAnimate) {
         const featureLists = document.querySelectorAll('.features-list');
         featureLists.forEach(list => {
             const listItems = list.querySelectorAll('li');
             gsap.fromTo(listItems,
-                { x: -30, opacity: 0 },
+                { x: listProfile.x, opacity: 0 },
                 {
                     x: 0,
                     opacity: 1,
-                    duration: 0.8,
-                    stagger: 0.15,
-                    ease: 'power2.out',
+                    duration: listProfile.duration,
+                    stagger: listProfile.stagger,
+                    ease: listProfile.ease || 'power2.out',
                     scrollTrigger: {
                         trigger: list,
-                        start: 'top 80%',
+                        start: listProfile.start,
                         once: true
                     }
                 }
@@ -116,21 +122,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 5. Intermission feature boxes reveal
-    if (canAnimate && !isMobile) {
+    if (canAnimate) {
         const featureBoxes = document.querySelectorAll('.feature-box');
         if (featureBoxes.length > 0) {
             gsap.fromTo(featureBoxes,
-                { y: 50, opacity: 0, scale: 0.95 },
+                { y: isMobile ? 56 : 50, opacity: 0, scale: isMobile ? 0.965 : 0.95 },
                 {
                     y: 0,
                     opacity: 1,
                     scale: 1,
-                    duration: 0.8,
-                    stagger: 0.2,
-                    ease: 'back.out(1.5)',
+                    duration: isMobile ? 0.9 : 0.8,
+                    stagger: isMobile ? 0.13 : 0.2,
+                    ease: isMobile ? 'expo.out' : 'back.out(1.5)',
                     scrollTrigger: {
                         trigger: '.info-section',
-                        start: 'top 75%',
+                        start: isMobile ? 'top 93%' : 'top 75%',
                         once: true
                     }
                 }
@@ -138,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (!canAnimate || isMobile) {
+    if (!canAnimate) {
         document.querySelectorAll('.gs-reveal > *, .info-card, .cta-content, .features-list li, .feature-box').forEach((el) => {
             el.style.opacity = '1';
             el.style.transform = 'none';
