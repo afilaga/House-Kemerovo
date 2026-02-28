@@ -1,110 +1,162 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const mobileMedia = window.matchMedia('(max-width: 768px)');
+    const reduceMotionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const isMobile = mobileMedia.matches;
+    const prefersReducedMotion = reduceMotionMedia.matches;
 
     // Navbar background change on scroll
     const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
+    let navTicking = false;
+    const updateNavbar = () => {
+        navTicking = false;
+        if (!navbar) {
+            return;
+        }
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+            return;
         }
-    });
+        navbar.classList.remove('scrolled');
+    };
+    window.addEventListener('scroll', () => {
+        if (navTicking) {
+            return;
+        }
+        navTicking = true;
+        window.requestAnimationFrame(updateNavbar);
+    }, { passive: true });
+    updateNavbar();
 
     // GSAP INITIALIZATION
-    gsap.registerPlugin(ScrollTrigger);
+    const canAnimate = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && !prefersReducedMotion;
+    if (canAnimate) {
+        gsap.registerPlugin(ScrollTrigger);
+    }
 
-    // 1. Initial Hero Reveal Animation
-    gsap.fromTo(".tag-sale",
-        { y: -20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.2 }
-    );
+    if (canAnimate) {
+        // 1. Initial Hero Reveal Animation
+        gsap.fromTo('.tag-sale',
+            { y: -20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.2 }
+        );
 
-    gsap.fromTo(".location",
-        { y: -20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.4 }
-    );
+        gsap.fromTo('.location',
+            { y: -20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.4 }
+        );
 
-    gsap.fromTo(".gs-reveal > *",
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.6 }
-    );
+        gsap.fromTo('.gs-reveal > *',
+            { y: 50, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: 'power3.out', delay: 0.6 }
+        );
+    }
 
     // 2. Parallax effect for backgrounds
-    const parallaxBgs = document.querySelectorAll(".parallax-bg");
-    parallaxBgs.forEach(bg => {
-        gsap.fromTo(bg,
-            { yPercent: -15, scale: 1.1 },
-            {
-                yPercent: 15,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: bg.parentElement.parentElement,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
+    if (canAnimate && !isMobile) {
+        const parallaxBgs = document.querySelectorAll('.parallax-bg');
+        parallaxBgs.forEach(bg => {
+            gsap.fromTo(bg,
+                { yPercent: -12, scale: 1.06 },
+                {
+                    yPercent: 12,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: bg.parentElement.parentElement,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 0.5
+                    }
                 }
-            }
-        );
-    });
+            );
+        });
+    }
 
     // 3. Info Cards Slide Up Reveal
-    const infoCards = document.querySelectorAll(".info-card, .cta-content");
-    infoCards.forEach(card => {
-        gsap.fromTo(card,
-            { y: 100, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top 85%", // Trigger when top of card hits 85% of viewport
-                    toggleActions: "play none none reverse"
+    if (canAnimate && !isMobile) {
+        const infoCards = document.querySelectorAll('.info-card, .cta-content');
+        infoCards.forEach(card => {
+            gsap.fromTo(card,
+                { y: 100, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        once: true
+                    }
                 }
-            }
-        );
-    });
+            );
+        });
+    }
 
     // 4. Feature sequence animation inside slides
-    const featureLists = document.querySelectorAll(".features-list");
-    featureLists.forEach(list => {
-        const listItems = list.querySelectorAll("li");
-        gsap.fromTo(listItems,
-            { x: -30, opacity: 0 },
-            {
-                x: 0,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.2, // Animate one by one
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: list,
-                    start: "top 80%",
-                    toggleActions: "play none none reverse"
+    if (canAnimate && !isMobile) {
+        const featureLists = document.querySelectorAll('.features-list');
+        featureLists.forEach(list => {
+            const listItems = list.querySelectorAll('li');
+            gsap.fromTo(listItems,
+                { x: -30, opacity: 0 },
+                {
+                    x: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.15,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: list,
+                        start: 'top 80%',
+                        once: true
+                    }
                 }
-            }
-        );
-    });
+            );
+        });
+    }
 
     // 5. Intermission feature boxes reveal
-    const featureBoxes = document.querySelectorAll(".feature-box");
-    gsap.fromTo(featureBoxes,
-        { y: 50, opacity: 0, scale: 0.95 },
-        {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "back.out(1.5)",
-            scrollTrigger: {
-                trigger: ".info-section",
-                start: "top 75%",
-                toggleActions: "play none none reverse"
-            }
+    if (canAnimate && !isMobile) {
+        const featureBoxes = document.querySelectorAll('.feature-box');
+        if (featureBoxes.length > 0) {
+            gsap.fromTo(featureBoxes,
+                { y: 50, opacity: 0, scale: 0.95 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: 'back.out(1.5)',
+                    scrollTrigger: {
+                        trigger: '.info-section',
+                        start: 'top 75%',
+                        once: true
+                    }
+                }
+            );
         }
-    );
+    }
+
+    if (!canAnimate || isMobile) {
+        document.querySelectorAll('.gs-reveal > *, .info-card, .cta-content, .features-list li, .feature-box').forEach((el) => {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+        });
+    }
+
+    if (canAnimate) {
+        const handleMotionChange = (event) => {
+            if (event.matches) {
+                ScrollTrigger.getAll().forEach((trigger) => {
+                    trigger.kill();
+                });
+            }
+        };
+        if (typeof reduceMotionMedia.addEventListener === 'function') {
+            reduceMotionMedia.addEventListener('change', handleMotionChange);
+        }
+    }
 
     // 6. PHOTO GALLERY LOGIC
     const galleryGrid = document.getElementById("photo-gallery");
